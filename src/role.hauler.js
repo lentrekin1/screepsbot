@@ -24,7 +24,7 @@ var haulerProc = {
                 sources:
                 for (var s in source_opts) {
                     for (var c in creep.room.find(FIND_MY_CREEPS)) {
-                        if (c.Memory.role === 'hauler' && c.Memory.source && c.Memory.source == s.id) {
+                        if (c.memory.role === 'hauler' && c.memory.source && c.memory.source == s.id) {
                             continue sources;
                         }
                     }

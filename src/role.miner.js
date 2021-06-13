@@ -11,7 +11,7 @@ var minerProc = {
             sources: //todo add check to see if container by source
                 for (var source in creep.room.find(FIND_SOURCES).reverse()) { //todo remove the reverse() - bandaid to make sure first miner goes to source w/ container already built
                     for (var c in creep.room.find(FIND_MY_CREEPS)) {
-                        if (c.Memory.role === 'miner' && c.Memory.target && c.Memory.target == source.id) {
+                        if (c.memory.role === 'miner' && c.memory.target && c.memory.target == source.id) {
                             continue sources;
                         }
                     }

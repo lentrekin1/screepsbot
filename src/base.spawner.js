@@ -29,7 +29,7 @@ var spawnerProc = {
                 // if none of this type exsists or not enough
                 if (!creepReport[role] || creepReport[role] < desiredDist[role]) {
                     if (spawn.room.energyAvailable >= blueprints[role].cost) {
-                        var result = spawn.spawnCreep(blueprints[role].blueprint, role + Game.time, {Memory: {'role': role}});
+                        var result = spawn.spawnCreep(blueprints[role].blueprint, role + Game.time, {memory: {'role': role}});
                         if (result != OK) {
                             console.log(`Unknown result from spawn.spawnCreep(${role}): ${result}`)
                         }
