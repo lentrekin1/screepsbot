@@ -6,15 +6,16 @@ var infoProc = {
 
     desiredDist: function (obj) {
         return {
-            'miner': _.filter(obj.room.find(FIND_SOURCES)).length,
-            'hauler': _.filter(obj.room.find(FIND_SOURCES)).length
+            'miner': _.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length, //todo maybe switch back to FIND_SOURCES
+            'hauler': _.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length
         }
     },
 
     getCreepPriority: function () {
         var dist = {
-            'hauler': 0.80,
-            'miner': 0.70, //todo change this - bandaid
+            'miner': 0.90,
+            'hauler': 0.80
+             //todo change this - bandaid
         };
         //todo reimplement using sort_obj here
         return dist //helperProc.sort_obj(dist);
