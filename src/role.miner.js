@@ -3,15 +3,18 @@
 var minerProc = {
     run: function (creep) {
         var target = undefined
-
         if (creep.memory.target) {
             target = Game.getObjectById(creep.memory.target);
         } else {
             // if not assigned to energy source, find an open one
+            var creeps = creep.room.find(FIND_MY_CREEPS)
+            var sources = creep.room.find(FIND_SOURCES).reverse()
             sources: //todo add check to see if container by source
-                for (var source in creep.room.find(FIND_SOURCES).reverse()) { //todo remove the reverse() - bandaid to make sure first miner goes to source w/ container already built
-                    for (var c in creep.room.find(FIND_MY_CREEPS)) {
-                        if (c.memory.role === 'miner' && c.memory.target && c.memory.target == source.id) {
+                for (var s in sources) { //todo remove the reverse() - bandaid to make sure first miner goes to source w/ container already built
+                    var source = sources[s]
+                    for (var c in creeps) {
+                        var thisCreep = creeps[c]
+                        if (thisCreep.memory.role && thisCreep.memory.role === 'miner' && thisCreep.memory.target && thisCreep.memory.target == source.id) {
                             continue sources;
                         }
                     }
@@ -22,7 +25,7 @@ var minerProc = {
         }
 
         if (target) {
-            if (creep.isNearTo(target)) {
+            if (creep.pos.isNearTo(target)) {
                 var result = creep.harvest(target);
                 if (result != OK) {
                     console.log(`[${creep.name}] (miner) Unknown result from creep.harvest(${source}): ${result}`);

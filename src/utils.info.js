@@ -6,8 +6,8 @@ var infoProc = {
 
     desiredDist: function (obj) {
         return {
-            'miner': _.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length, //todo maybe switch back to FIND_SOURCES
-            'hauler': _.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length
+            'miner': _.filter(obj.room.find(FIND_SOURCES)).length, //_.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length, //todo maybe switch back to FIND_SOURCES
+            'hauler': _.filter(obj.room.find(FIND_SOURCES)).length //_.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length
         }
     },
 

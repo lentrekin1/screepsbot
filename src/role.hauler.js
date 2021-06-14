@@ -16,19 +16,22 @@ var haulerProc = {
             if (creep.memory.source) {
                 source = Game.getObjectById(creep.memory.source);
             } else {
-                var source_opts = _.filter(creep.room.find(FIND_STRUCTURES), function (s) {return s.structureType === STRUCTURE_CONTAINER});
+                var source_opts = creep.room.find(FIND_DROPPED_RESOURCES) //_.filter(creep.room.find(FIND_STRUCTURES), function (s) {return s.structureType === STRUCTURE_CONTAINER}); todo revert to use structure types
+                var creeps = creep.room.find(FIND_MY_CREEPS)
                 //source_opts.concat(_.filter(creep.room.find(FIND_RUINS), function (r) {
                 //    return r.store.getCapacity(RESOURCE_ENERGY) > 0
                 //})); //todo maybe re-add ruins to harvesting options
                 //todo add what to do if no containers found
                 sources:
                 for (var s in source_opts) {
+                    var thisSource = source_opts[s]
                     for (var c in creep.room.find(FIND_MY_CREEPS)) {
-                        if (c.memory.role === 'hauler' && c.memory.source && c.memory.source == s.id) {
+                        var thisCreep = creeps[c]
+                        if (thisCreep.memory.role && thisCreep.memory.role === 'hauler' && thisCreep.memory.source && thisCreep.memory.source == thisSource.id) {
                             continue sources;
                         }
                     }
-                    source = s;
+                    source = thisSource;
                     creep.memory.source = source.id;
                     break;
                 }
@@ -36,9 +39,9 @@ var haulerProc = {
 
             if (source) {
                 if (creep.pos.isNearTo(source)) {
-                    var result = creep.withdraw(source, RESOURCE_ENERGY);
+                    var result = creep.pickup(source)//creep.withdraw(source, RESOURCE_ENERGY);
                     if (result != OK) {
-                        console.log(`[${creep.name}] Unknown result from creep.harvest(${source}): ${result}`);
+                        console.log(`TODO switch back to withdraw() [${creep.name}] Unknown result from creep.pickup(${source}): ${result}`);
                     }
                 } else {
                     creep.moveTo(source);

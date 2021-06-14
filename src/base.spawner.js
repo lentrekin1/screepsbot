@@ -17,7 +17,7 @@ var spawnerProc = {
 
             //todo make this better
             if (numCreeps === 0) {
-                result = spawn.spawnCreep([WORK, WORK, MOVE, CARRY], 'harvester' + Game.time)
+                result = spawn.spawnCreep([WORK, MOVE, CARRY], 'harvester' + Game.time)
                 if (result != OK) {
                     console.log(`Unknown result from spawn.spawnCreep(harvester): ${result}`)
                 }
@@ -29,7 +29,7 @@ var spawnerProc = {
                 // if none of this type exsists or not enough
                 if (!creepReport[role] || creepReport[role] < desiredDist[role]) {
                     if (spawn.room.energyAvailable >= blueprints[role].cost) {
-                        var result = spawn.spawnCreep(blueprints[role].blueprint, role + Game.time, {memory: {'role': role}});
+                        var result = spawn.spawnCreep(blueprints[role].blueprint, role + Game.time, {memory: {role: role}});
                         if (result != OK) {
                             console.log(`Unknown result from spawn.spawnCreep(${role}): ${result}`)
                         }
