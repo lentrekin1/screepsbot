@@ -59,11 +59,11 @@ var haulerProc = {
                 // track when next spawn needed and make sure spawner has enough energy,
                 // track if constuction availible and go to if so
                 if (creep.room.energyAvailable < creep.room.energyCapacityAvailable) { // if not max energy in room, choose closest unfilled spawn/extension and go there
-                    var target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: function (s) {return (s.structureType == STRUCTURE_SPAWN || s.structureType == STRUCTURE_EXTENSION) && s.energy < s.energyCapacity}});
+                    var target = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: function (s) {return (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity}});
                 } else if (creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)) { // find closest construction and go there
                     var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
                 } else { // if nothing else, target room controller
-                    var target = _.filter(creep.room.find(FIND_MY_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTROLLER});
+                    var target = _.filter(creep.room.find(FIND_MY_STRUCTURES), function (s) {return s.structureType === STRUCTURE_CONTROLLER})[0];
                 }
                 creep.memory.target = target.id;
             }
