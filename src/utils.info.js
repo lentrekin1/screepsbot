@@ -40,7 +40,7 @@ var infoProc = {
                 'cost': 550
             },
             'hauler': {
-                'blueprint': [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+                'blueprint': [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, MOVE, MOVE, MOVE],
                 'cost': 550
             }
         };
