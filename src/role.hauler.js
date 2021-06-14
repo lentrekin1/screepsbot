@@ -13,7 +13,7 @@ var haulerProc = {
 
         if (creep.memory.filling) {
             var source = undefined;
-            if (creep.memory.source) {
+            if (creep.memory.source && Game.getObjectById(creep.memory.source)) {
                 source = Game.getObjectById(creep.memory.source);
             } else {
                 var source_opts = creep.room.find(FIND_DROPPED_RESOURCES) //_.filter(creep.room.find(FIND_STRUCTURES), function (s) {return s.structureType === STRUCTURE_CONTAINER}); todo revert to use structure types
@@ -25,7 +25,9 @@ var haulerProc = {
                 sources:
                 for (var s in source_opts) {
                     var thisSource = source_opts[s]
+                    console.log(thisSource.id)
                     for (var c in creep.room.find(FIND_MY_CREEPS)) {
+                        console.log(thisSource.id)
                         var thisCreep = creeps[c]
                         if (thisCreep.memory.role && thisCreep.memory.role === 'hauler' && thisCreep.memory.source && thisCreep.memory.source == thisSource.id) {
                             continue sources;
