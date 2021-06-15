@@ -1,7 +1,36 @@
 'use strict';
 // this type should never spawn - backup in case something goes wrong
+
+const statsProc = require('utils.stats');
+const infoProc = require('utils.info');
+
 var harvesterProc = {
     run: function (creep) {
+        //creep should recycle when creepReport == desiredDist
+        var spawn = creep.pos.findClosestByPath(FIND_MY_SPAWNS)
+        var creepReport = statsProc.creepsReport(spawn);
+        var desiredDist = infoProc.desiredDist(spawn);
+
+        outer:
+        for (var i;i<1;i++) {
+            for (var c in creepReport) {
+                console.log(creepReport.c, desiredDist.c)
+                if (creepReport.c !== desiredDist.c) {
+                    break outer;
+                }
+            }
+            if (creep.isNearTo(spawn)) {
+                var result = spawn.recycleCreep(creep)
+                if (result != OK) {
+                    console.log(`[${creep.name}] Unknown result from spawn.recycle(): ${result}`);
+                }
+                break;
+            } else {
+                creep.moveTo(spawn)
+                break;
+            }
+        }
+
         if (creep.memory.filling && _.sum(creep.carry) >= creep.carryCapacity) {
             creep.memory.filling = false;
             delete creep.memory.source;
@@ -13,8 +42,8 @@ var harvesterProc = {
         if (creep.memory.filling) {
             if (creep.memory.source && Game.getObjectById(creep.memory.source)) { //todo add check if source/target still exists for everything
                 var source = Game.getObjectById(creep.memory.source);
-            } else {
-                var source_opts = creep.room.find(FIND_SOURCES_ACTIVE).concat(creep.room.find(FIND_DROPPED_RESOURCES));
+            } else { //todo implement necessary changes from harvester in hauler
+                var source_opts = creep.room.find(FIND_DROPPED_RESOURCES).concat(creep.room.find(FIND_SOURCES_ACTIVE));
                 var source = source_opts[0]
                 // find closest source in list
                 for (var s in source_opts) {
