@@ -22,12 +22,11 @@ var haulerProc = {
                 //    return r.store.getCapacity(RESOURCE_ENERGY) > 0
                 //})); //todo maybe re-add ruins to harvesting options
                 //todo add what to do if no containers found
+                //todo add tombstone (from recycled/dead creeps) and ruin targeting and dropped energy
                 sources:
                 for (var s in source_opts) {
                     var thisSource = source_opts[s]
-                    console.log(thisSource.id)
                     for (var c in creep.room.find(FIND_MY_CREEPS)) {
-                        console.log(thisSource.id)
                         var thisCreep = creeps[c]
                         if (thisCreep.memory.role && thisCreep.memory.role === 'hauler' && thisCreep.memory.source && thisCreep.memory.source == thisSource.id) {
                             continue sources;
@@ -50,7 +49,7 @@ var haulerProc = {
                 }
             } else {
                 // no unclaimed sources, creep shouldn't have spawned
-                // todo add creep.suicide here when sure this script works
+                // todo add creep.suicide or recycle here when sure this script works
                 console.log(`[${creep.name}] (hauler) no open sources found`);
             }
         } else {
@@ -70,14 +69,14 @@ var haulerProc = {
                 creep.memory.target = target.id;
             }
 
-            if (target.store.getCapacity(RESOURCE_ENERGY)) {
+            if (target.store && target.store.getCapacity(RESOURCE_ENERGY)) {
                 var is_close = creep.pos.isNearTo(target);
             } else {
                 var is_close = creep.pos.inRangeTo(target, 2)
             }
 
             if (is_close) {
-                if (target.store.getCapacity(RESOURCE_ENERGY)) {
+                if (target.store && target.store.getCapacity(RESOURCE_ENERGY)) {
                     result = creep.transfer(target, RESOURCE_ENERGY);
                     if (result == OK || result == ERR_FULL) {
                         delete creep.memory.target;

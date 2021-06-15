@@ -9,18 +9,28 @@ var harvesterProc = {
             creep.memory.filling = true;
             delete creep.memory.target;
         }
-
+        //todo add recycle harvesters once other creeps spawned
         if (creep.memory.filling) {
-            if (creep.memory.source) {
+            if (creep.memory.source && Game.getObjectById(creep.memory.source)) { //todo add check if source/target still exists for everything
                 var source = Game.getObjectById(creep.memory.source);
             } else {
-                var source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+                var source_opts = creep.room.find(FIND_SOURCES_ACTIVE).concat(creep.room.find(FIND_DROPPED_RESOURCES));
+                var source = source_opts[0]
+                // find closest source in list
+                for (var s in source_opts) {
+                    var currSource = source_opts[s];
+                    if (creep.pos.findPathTo(currSource).length < creep.pos.findPathTo(source).length) {
+                        source = currSource;
+                    }
+                }
                 creep.memory.source = source.id;
             }
 
             if (creep.pos.isNearTo(source)) {
-                if (source.store.getCapacity(RESOURCE_ENERGY)) {
+                if (source.store && source.store.getCapacity(RESOURCE_ENERGY)) {
                     var result = creep.harvest(source);
+                } else if (source.amount) {
+                    var result = creep.pickup(source);
                 } else {
                     var result = creep.withdraw(source, RESOURCE_ENERGY);
                 }

@@ -14,7 +14,7 @@ var spawnerProc = {
             var numCreeps = statsProc.numCreeps(spawn);
 
             //todo make this better
-            if (numCreeps === 0) {
+            if (!creepReport.hauler && creepReport.harvester <= 0) {
                 result = spawn.spawnCreep([WORK, MOVE, CARRY], 'harvester' + Game.time, {memory: {role: 'harvester'}})
                 if (result != OK) {
                     console.log(`Unknown result from spawn.spawnCreep(harvester): ${result}`)

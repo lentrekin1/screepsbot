@@ -35,7 +35,7 @@ var minerProc = {
             }
         } else {
             // no open sources found, shouldn't have spawned
-            // todo add creep.suicide here when sure this script works
+            // todo add creep.suicide or recycle here when sure this script works
             console.log(`[${creep.name}] (miner) no open sources found`);
         }
     }

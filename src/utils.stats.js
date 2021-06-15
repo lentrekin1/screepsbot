@@ -4,7 +4,7 @@ const helperProc = require('utils.helper');
 
 var statsProc = {
 
-    creepsReport: function (obj = undefined) {
+    creepsReport: function (obj = undefined) { //todo maybe dont just not include creep types w/ 0 alive
         var creeps = {};
         // if object given, get creeps in that object's room
         if (obj != undefined) {
