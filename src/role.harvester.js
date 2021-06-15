@@ -11,7 +11,7 @@ var harvesterProc = {
         var creepReport = statsProc.creepsReport(spawn);
         var desiredDist = infoProc.desiredDist(spawn);
 
-        outer:
+        outer: //todo recycling doesnt work
         for (var i;i<1;i++) {
             for (var c in creepReport) {
                 console.log(creepReport.c, desiredDist.c)
@@ -19,6 +19,7 @@ var harvesterProc = {
                     break outer;
                 }
             }
+            creep.memory.recycling = true
             if (creep.isNearTo(spawn)) {
                 var result = spawn.recycleCreep(creep)
                 if (result != OK) {
@@ -29,6 +30,10 @@ var harvesterProc = {
                 creep.moveTo(spawn)
                 break;
             }
+        }
+
+        if (creep.room.energyAvailable >= creep.room.energyCapacityAvailable) {
+            return; //todo change this/remove
         }
 
         if (creep.memory.filling && _.sum(creep.carry) >= creep.carryCapacity) {

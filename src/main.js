@@ -12,11 +12,6 @@ module.exports.loop = function () {
     bannerProc.run(Game.rooms);
     cleanupProc.run(Game, Memory)
 
-    for (var s in Game.spawns) {
-        var spawn = Game.spawns[s];
-        spawnerProc.run(spawn);
-    }
-
     for (var c in Game.creeps) {
         var creep = Game.creeps[c];
         if (creep.memory.role === 'miner') {
@@ -28,6 +23,11 @@ module.exports.loop = function () {
         } else {
             console.log(`${creep.name}: unknown role: ${creep.memory.role}`)
         } // todo make this less hardcoded/ account for new roles
+    }
+
+    for (var s in Game.spawns) {
+        var spawn = Game.spawns[s];
+        spawnerProc.run(spawn);
     }
 
 }

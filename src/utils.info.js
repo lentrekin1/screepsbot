@@ -7,14 +7,16 @@ var infoProc = {
     desiredDist: function (obj) {
         return {
             'miner': _.filter(obj.room.find(FIND_SOURCES)).length, //_.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length, //todo maybe switch back to FIND_SOURCES
-            'hauler': _.filter(obj.room.find(FIND_SOURCES)).length //_.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length
+            'hauler': _.filter(obj.room.find(FIND_SOURCES)).length, //_.filter(obj.room.find(FIND_STRUCTURES), function (s) {return s.structureType == STRUCTURE_CONTAINER}).length
+            'harvester': 0
         }
     },
 
     getCreepPriority: function () {
         var dist = {
             'miner': 0.90,
-            'hauler': 0.80
+            'hauler': 0.80,
+            'harvester': 0.01
              //todo change this - bandaid
         };
         //todo reimplement using sort_obj here

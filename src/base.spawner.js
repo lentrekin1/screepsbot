@@ -20,11 +20,14 @@ var spawnerProc = {
                     console.log(`Unknown result from spawn.spawnCreep(harvester): ${result}`)
                 }
             }
-
+            //console.log(JSON.stringify(creepReport))
+            //console.log(JSON.stringify(desiredDist))
+            //console.log(JSON.stringify(priority))
             //todo make it so track creep life time and spawn so that miner will show up just as other miner dies
             for (var role in priority) {
                 // if none of this type exsists or not enough
-                if (!creepReport.role || creepReport.role < desiredDist.role) {
+                //console.log(`role ${role} creepreport ${creepReport[role]} desired ${desiredDist[role]}`)
+                if ((!creepReport[role] && role !== 'harvester') || creepReport[role] < desiredDist[role]) {
                     if (spawn.room.energyAvailable >= blueprints[role].cost) {
                         var result = spawn.spawnCreep(blueprints[role].blueprint, role + Game.time, {memory: {role: role}});
                         if (result !== OK) {
