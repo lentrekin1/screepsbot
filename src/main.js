@@ -14,12 +14,14 @@ module.exports.loop = function () {
 
     for (var c in Game.creeps) {
         var creep = Game.creeps[c];
-        if (creep.memory.role && creep.memory.role === 'miner') {
+        if (creep.memory.role === 'miner') {
             minerProc.run(creep);
-        } else if (creep.memory.role && creep.memory.role === 'hauler') {
+        } else if (creep.memory.role === 'hauler') {
             haulerProc.run(creep);
-        } else {
+        } else if (creep.memory.role === 'harvester') {
             harvesterProc.run(creep);
+        } else {
+            console.log(`${creep.name}: unknown role: ${creep.memory.role}`)
         } // todo make this less hardcoded/ account for new roles
     }
 
