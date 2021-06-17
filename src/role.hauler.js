@@ -10,7 +10,7 @@ var haulerProc = {
             creep.memory.filling = true;
             delete creep.memory.target;
         }
-
+        //TODO !!! add repairing
         if (creep.memory.filling) {
             var source = undefined;
             if (creep.memory.source && Game.getObjectById(creep.memory.source) && (!Game.getObjectById(creep.memory.source).store || (Game.getObjectById(creep.memory.source).store && Game.getObjectById(creep.memory.source).store.getFreeCapacity(RESOURCE_ENERGY) > 0))) {
