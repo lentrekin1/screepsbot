@@ -2,6 +2,11 @@
 
 var haulerProc = {
     run: function (creep) {
+        //todo remove this and add actual tickstoreplaace calculation
+        if (!creep.memory.ticksToReplace) {
+            creep.memory.ticksToReplace = 400;
+        }
+
         // todo source should remain constant for life of hauler creep - change?
         if (creep.memory.filling && _.sum(creep.carry) >= creep.carryCapacity) {
             creep.memory.filling = false;

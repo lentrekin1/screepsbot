@@ -11,6 +11,11 @@ var harvesterProc = {
         var creepReport = statsProc.creepsReport(spawn);
         var desiredDist = infoProc.desiredDist(spawn);
 
+        //todo remove this and add actual tickstoreplaace calculation
+        if (!creep.memory.ticksToReplace) {
+            creep.memory.ticksToReplace = 400;
+        }
+
         outer: //todo recycling doesnt work
         for (var i;i<1;i++) {
             for (var c in creepReport) {
@@ -62,14 +67,20 @@ var harvesterProc = {
 
             if (creep.pos.isNearTo(source)) {
                 if (source.store && source.store.getCapacity(RESOURCE_ENERGY)) {
-                    var result = creep.harvest(source);
+                    var result = creep.withdraw(source, RESOURCE_ENERGY);
+                    if (result != OK) {
+                        console.log(`[${creep.name}] Unknown result from creep.withdraw(${source}): ${result}`);
+                    }
                 } else if (source.amount) {
                     var result = creep.pickup(source);
+                    if (result != OK) {
+                        console.log(`[${creep.name}] Unknown result from creep.amount(${source}): ${result}`);
+                    }
                 } else {
-                    var result = creep.withdraw(source, RESOURCE_ENERGY);
-                }
-                if (result != OK) {
-                    console.log(`[${creep.name}] Unknown result from creep.withdraw(${source}): ${result}`);
+                    var result = creep.harvest(source);
+                    if (result != OK) {
+                        console.log(`[${creep.name}] Unknown result from creep.harvest(${source}): ${result}`);
+                    }
                 }
             } else {
                 creep.moveTo(source);

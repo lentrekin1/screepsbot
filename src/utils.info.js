@@ -37,11 +37,18 @@ var infoProc = {
         */
 
         return {
+            'harvester': {
+                'role': 'harvester',
+                'blueprint': [WORK, MOVE, CARRY],
+                'cost': 200
+            },
             'miner': {
+                'role': 'miner',
                 'blueprint': [WORK, WORK, WORK, WORK, WORK, MOVE],
                 'cost': 550
             },
             'hauler': {
+                'role': 'hauler',
                 'blueprint': [CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, WORK, MOVE, MOVE, MOVE],
                 'cost': 550
             }

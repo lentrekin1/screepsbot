@@ -2,6 +2,11 @@
 
 var minerProc = {
     run: function (creep) {
+        //todo remove this and add actual tickstoreplaace calculation
+        if (!creep.memory.ticksToReplace) {
+            creep.memory.ticksToReplace = 400;
+        }
+
         var target = undefined
         if (creep.memory.target) {
             target = Game.getObjectById(creep.memory.target);
